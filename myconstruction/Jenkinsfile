@@ -10,7 +10,7 @@ pipeline {
 
     environment {
         ARTIFACTORY_URL = 'http://jfrog_artifactory:8082/artifactory'
-        ARTIFACTORY_REPO = 'myconstruction-dev'
+        ARTIFACTORY_REPO = 'test-construction'
         ARTIFACTORY_CREDS = credentials('artifact-creds') // ID de las credenciales de Artifactory en Jenkins
     }
 
