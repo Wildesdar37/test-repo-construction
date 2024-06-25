@@ -5,14 +5,14 @@ pipeline {
         // Instalar Maven desde las herramientas globales de Jenkins
         maven 'Maven 3.6.3'
         jdk 'jdk-11'
-        // jfrog 'jfrog-cli'
+        jfrog 'jfrog-cli'
     }
 
-    // environment {
-    //     ARTIFACTORY_URL = 'http://jfrog_artifactory:8082/artifactory'
-    //     ARTIFACTORY_REPO = 'myconstruction-dev'
-    //     ARTIFACTORY_CREDS = credentials('artifact-creds') // ID de las credenciales de Artifactory en Jenkins
-    // }
+    environment {
+        ARTIFACTORY_URL = 'http://jfrog_artifactory:8082/artifactory'
+        ARTIFACTORY_REPO = 'myconstruction-dev'
+        ARTIFACTORY_CREDS = credentials('artifact-creds') // ID de las credenciales de Artifactory en Jenkins
+    }
 
     stages {
 
@@ -34,26 +34,26 @@ pipeline {
         }
 
 
-        // stage('Upload to jfrog') {
-        //     steps {
-        //         dir('myconstruction') {
-        //             // Show the installed version of JFrog CLI.
-        //             jf '-v'
+        stage('Upload to jfrog') {
+            steps {
+                dir('myconstruction') {
+                    // Show the installed version of JFrog CLI.
+                    jf '-v'
 
-        //             // Show the configured JFrog Platform instances.
-        //             jf 'c show'
+                    // Show the configured JFrog Platform instances.
+                    jf 'c show'
 
-        //             // Ping Artifactory.
-        //             jf 'rt ping'
+                    // Ping Artifactory.
+                    jf 'rt ping'
 
-        //             // Create a file and upload it to a repository  in Artifactory
-        //             jf "rt u target/myconstruction-0.0.1-SNAPSHOT.jar myconstruction/${BUILD_TAG}/"
+                    // Create a file and upload it to a repository  in Artifactory
+                    jf "rt u target/myconstruction-0.0.1-SNAPSHOT.jar myconstruction/${BUILD_TAG}/"
 
-        //             // Publish the build-info to Artifactory.
-        //             jf 'rt bp'
-        //         }
-        //     }
-        // }
+                    // Publish the build-info to Artifactory.
+                    jf 'rt bp'
+                }
+            }
+        }
     }
 
     post {
